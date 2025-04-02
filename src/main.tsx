@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.js'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
-import ProductTable from './ProductTable'
+import ProductList from './ProductList'
 import HomePage from './HomePage'
 
 
@@ -19,11 +19,12 @@ const router = createHashRouter([
       },
       {
         path: "products",
-        element: <ProductTable />,
+        element: <ProductList />,
       },
     ]
   }
 ])
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
