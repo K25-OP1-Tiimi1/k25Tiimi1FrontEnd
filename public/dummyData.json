@@ -1,5 +1,7 @@
 {
-"Products":[
+"_embedded" : {
+
+"products":[
 {
     "id" : 1,
     "tyyppi" : "takki",
@@ -28,5 +30,6 @@
 
 }
 ]
-
+    
+}
 }
