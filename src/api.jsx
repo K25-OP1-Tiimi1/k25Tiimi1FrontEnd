@@ -4,4 +4,5 @@ const fetchProducts = async () => {
     return data._embedded.products;
 }
 
+
 export{fetchProducts};
