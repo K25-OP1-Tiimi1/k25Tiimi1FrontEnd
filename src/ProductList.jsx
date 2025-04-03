@@ -22,24 +22,30 @@ import { AllCommunityModule, ColumnAutoSizeModule, ModuleRegistry } from "ag-gri
         //ag-Grid varten sarakkeet
         const [columnDefs, setColumnDefs] = useState([
             {field: 'tyyppi'},
-            {field: 'väri'},
-            {field: 'koko'},
-            {field: 'hinta'},
+            {field: 'väri', filter:false},
+            {field: 'koko', filter: false},
+            {field: 'hinta', filter:false, },
             {field: 'valmistaja'}
         ]);
         //Haetaan data toistaiseksi dymmyData.json tiedostosta
         // fetchProducts löytyy api tiodostosta
         useEffect( () => fetchProducts, [])
     return(
-        <div className="ProductTable" style={{height:1000, width:1000}}>
+        <div className="ProductTable" style={{height:1000, opacity:0.9}}>
 
             <AgGridReact
             rowData={Products}
             columnDefs={columnDefs}
             domLayout="autoHeight"
+            rowHeight={50}
             defaultColDef={{
                 flex: 1,
+                resizable: true,
+                sortable: true,
+                filter: true,
+                
             }}
+          
             />
         </div>
 )}
