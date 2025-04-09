@@ -29,6 +29,7 @@ function App() {
                         <nav>
                           <Link to={"/"} style={{fontWeight:"bold", fontSize:20}}>Home Page</Link>
                           <Link to={"/products"} style={{fontWeight:"bold", fontSize:20}}>Products</Link>
+                          <Link to={"/about-us"} style={{fontWeight:"bold", fontSize:20}}>About Us</Link>
                         </nav>
                       </Typography>
                   </Toolbar>
