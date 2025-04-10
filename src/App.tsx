@@ -21,7 +21,7 @@ function App() {
          }}>
         <QueryClientProvider client={queryClient}>
          <Container maxWidth="xl">
-          <h1>Omppu & Rane</h1>
+          <h1 style = {{ backgroundColor: 'white' , fontFamily: 'serif'}} >Omppu & Rane</h1>
               <CssBaseline />
               <AppBar position="static" style={{opacity:0.7}} >
                   <Toolbar variant='dense' >
