@@ -16,16 +16,16 @@ import { AllCommunityModule, ColumnAutoSizeModule, ModuleRegistry } from "ag-gri
         const queryClient = useQueryClient();
 
         const {data: Products} = useQuery({
-            queryKey: ['products'],
+            queryKey: [''],
             queryFn: fetchProducts
         })
         //ag-Grid varten sarakkeet
         const [columnDefs, setColumnDefs] = useState([
-            {field: 'tyyppi'},
-            {field: 'väri', filter:false},
-            {field: 'koko', filter: false},
-            {field: 'hinta', filter:false, },
-            {field: 'valmistaja'}
+            {field: 'productName'},
+            {field: 'productType', filter:false},
+            {field: 'color', filter: false},
+            {field: 'size', filter:false, },
+            {field: 'price'}
         ]);
         //Haetaan data toistaiseksi dymmyData.json tiedostosta
         // fetchProducts löytyy api tiodostosta
