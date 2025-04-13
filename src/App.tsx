@@ -23,7 +23,7 @@ function App() {
          <Container maxWidth="xl">
           <h1 style = {{ backgroundColor: 'white' , fontFamily: 'serif'}} >Omppu & Rane</h1>
               <CssBaseline />
-              <AppBar position="static" style={{opacity:0.7, height:80}} >
+              <AppBar position="static" style={{opacity:0.9, height:80}} >
                   <Toolbar variant='dense' >
                       <Typography variant="h5">
                         <nav>
