@@ -13,7 +13,7 @@ function App() {
   
       return(
      
-        <div className='image' style={{backgroundImage: `url("public/FreepikBackgroundImage.jpg")`,
+        <div className='backGroundImage' style={{backgroundImage: `url("public/FreepikBackgroundImage.jpg")`,
           
          backgroundSize: 2400,
          backgroundPosition:"center",
@@ -23,13 +23,13 @@ function App() {
          <Container maxWidth="xl">
           <h1 style = {{ backgroundColor: 'white' , fontFamily: 'serif'}} >Omppu & Rane</h1>
               <CssBaseline />
-              <AppBar position="static" style={{opacity:0.7}} >
+              <AppBar position="static" style={{opacity:0.7, height:80}} >
                   <Toolbar variant='dense' >
-                      <Typography variant="h5" border="thick">
+                      <Typography variant="h5">
                         <nav>
-                          <Link to={"/"} style={{fontWeight:"bold", fontSize:20}}>Home Page</Link>
-                          <Link to={"/products"} style={{fontWeight:"bold", fontSize:20}}>Products</Link>
-                          <Link to={"/about-us"} style={{fontWeight:"bold", fontSize:20}}>About Us</Link>
+                          <Link to={"/"} style={{fontWeight:"bold", fontSize:30}}>Home Page</Link>
+                          <Link to={"/products"} style={{fontWeight:"bold", fontSize:30}}>Products</Link>
+                          <Link to={"/about-us"} style={{fontWeight:"bold", fontSize:30}}>About Us</Link>
                         </nav>
                       </Typography>
                   </Toolbar>

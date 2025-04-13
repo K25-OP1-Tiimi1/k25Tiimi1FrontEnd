@@ -20,30 +20,51 @@ import { AllCommunityModule, ColumnAutoSizeModule, ModuleRegistry } from "ag-gri
             queryFn: fetchProducts
         })
         //ag-Grid varten sarakkeet
-        const [columnDefs, setColumnDefs] = useState([
-            {field: 'productName'},
-            {field: 'productType', filter:false},
-            {field: 'color', filter: false},
-            {field: 'size', filter:false, },
-            {field: 'price'}
+        const [columnDefs, setColumnDefs] = useState([           
+            {field: 'manufacturer.name', 
+                headerName:"Valmistaja",
+            },
+            {field: 'productName', 
+                headerName:"Tuote"},
+            {field: 'productType', 
+                headerName:"kategoria"},
+            {field: 'color', 
+                filter: false, 
+                headerName:"Väri",   
+            },
+            {field: 'size', 
+                filter:false, 
+                headerName:"Koko",
+            },
+            {field: 'price', 
+                headerName:"Hinta"},
+            
         ]);
-        //Haetaan data toistaiseksi dymmyData.json tiedostosta
+        //Haetaan Backendistä
         // fetchProducts löytyy api tiodostosta
         useEffect( () => fetchProducts, [])
     return(
-        <div className="ProductTable" style={{height:1000, opacity:0.9}}>
+        <div className="ProductTable" style={{width: "100%", height: "100%", opacity:0.95, }}>
 
             <AgGridReact
+            
             rowData={Products}
             columnDefs={columnDefs}
             domLayout="autoHeight"
-            rowHeight={50}
+            rowHeight={70}
+            rowStyle={{fontSize:20}}
+            headerHeight={70}
             defaultColDef={{
+                initialWidth: 200,
                 flex: 1,
-                resizable: true,
+                floatingFilter: true,
                 sortable: true,
                 filter: true,
-                
+                headerStyle: 
+                    {
+                    fontSize: 20, 
+                    backgroundColor: 'white', 
+                    fontWeight:"bold"}
             }}
           
             />
