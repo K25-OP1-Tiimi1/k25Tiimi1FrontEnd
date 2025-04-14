@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.js'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 import ProductList from './ProductList'
-import HomePage from './HomePage'
+import HomePage from './HomePage.js'
 import AboutUs from './AboutUs'
 
 
