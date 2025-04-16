@@ -17,7 +17,7 @@ export default function UserList() {
         { field: 'email', headerName: 'Email', sortable: true, filter: true },
     ];
 
-    if (isLoading) return <div>Loading users...</div>;
+    if (isLoading) return <div>Loading users....</div>;
     if (isError) return <div>Error loading users: {error?.message || 'Unknown error'}</div>;
 
     return (
