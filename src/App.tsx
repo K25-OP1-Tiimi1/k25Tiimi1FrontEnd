@@ -30,6 +30,7 @@ function App() {
                           <Link to={"/"} style={{fontWeight:"bold", fontSize:30}}>Home Page</Link>
                           <Link to={"/products"} style={{fontWeight:"bold", fontSize:30}}>Products</Link>
                           <Link to={"/about-us"} style={{fontWeight:"bold", fontSize:30}}>About Us</Link>
+                          <Link to={"/users"} style={{fontWeight:"bold", fontSize:30}}>Users</Link>
                         </nav>
                       </Typography>
                   </Toolbar>
