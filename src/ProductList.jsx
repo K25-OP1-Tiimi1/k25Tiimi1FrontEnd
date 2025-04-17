@@ -16,7 +16,7 @@ import { AllCommunityModule, ColumnAutoSizeModule, ModuleRegistry } from "ag-gri
         const queryClient = useQueryClient();
 
         const {data: Products} = useQuery({
-            queryKey: [''],
+            queryKey: ['products'],
             queryFn: fetchProducts
         })
         //ag-Grid varten sarakkeet
