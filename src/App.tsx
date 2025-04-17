@@ -1,9 +1,9 @@
 
 import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AppBar, Container, CssBaseline, hexToRgb, rgbToHex, Toolbar, Typography } from '@mui/material';
+import { AppBar, Container, CssBaseline, Toolbar, Typography } from '@mui/material';
 import { Link, Outlet } from 'react-router-dom';
-
+import FooterSection from './Footer.tsx'
 
 function App() {
   
@@ -35,11 +35,7 @@ function App() {
                   </Toolbar>
               </AppBar>
               <Outlet />
-              <footer style={{ marginTop: '390px', padding: '20px', backgroundColor: '#f1f1f1', textAlign: 'center', opacity: 0.9 }}>
-                <p>Owners: Omppu ja rane</p>
-                <p>Founded: 2025</p>
-                <p>Y-tunnus: 28hm45</p>
-            </footer>
+          <FooterSection />
          </Container>
         
       </QueryClientProvider>
