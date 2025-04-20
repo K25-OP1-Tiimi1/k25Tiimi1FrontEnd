@@ -5,12 +5,13 @@ import { AppBar, Container, CssBaseline, Toolbar, Typography } from '@mui/materi
 import { Link, Outlet } from 'react-router-dom';
 import FooterSection from './Footer.tsx'
 
+
+
 function App() {
   
   const queryClient = new QueryClient();
 
 
-  
       return(
      
         <div className='backGroundImage' style={{backgroundImage: `url("public/FreepikBackgroundImage.jpg")`,
@@ -26,11 +27,13 @@ function App() {
               <AppBar position="static" style={{opacity:0.9, height:80}} >
                   <Toolbar variant='dense' >
                       <Typography variant="h5">
+                        
                         <nav>
                           <Link to={"/"} style={{fontWeight:"bold", fontSize:30}}>Home Page</Link>
                           <Link to={"/products"} style={{fontWeight:"bold", fontSize:30}}>Products</Link>
                           <Link to={"/about-us"} style={{fontWeight:"bold", fontSize:30}}>About Us</Link>
                           <Link to={"/users"} style={{fontWeight:"bold", fontSize:30}}>Users</Link>
+                          <Link to={"/account"} style={{fontWeight:"bold", fontSize:30}}>account</Link>
                         </nav>
                       </Typography>
                   </Toolbar>

@@ -7,7 +7,7 @@ import ProductList from './ProductList'
 import HomePage from './HomePage.js'
 import AboutUs from './AboutUs'
 import UserList from './UserList'
-
+import Account from './Account'
 
 //routter
 const router = createHashRouter([
@@ -30,6 +30,10 @@ const router = createHashRouter([
       {
         path: "users",
         element: <UserList />,
+      },
+      {
+        path: "account",
+        element:<Account />
       }
     ]
   }
