@@ -3,14 +3,17 @@ import { useState } from "react"
 
 export default function Account() {
 
-    const [signUser, setSignUser] = useState({ username: '', email: '' });
+    const [signUser, setSignUser] = useState({ email: '', password: '' });
     const [user, setUser] = useState([])
-    const [registerUser, setRegisterUser] = useState({ username: '', email: '' })
+    const [registerUser, setRegisterUser] = useState({ email: '', firstname: '', lastname: '', password: '' })
 
     const [open, setOpen] = useState(false)
     const [openRegistForm, setOpenRegistForm] = useState(false)
     const [showRegisterButton, setShowRegisterButton] = useState(true)
+    const [showUser, setShowUser] = useState(false)
 
+    const demo = "http://localhost:8080/api";
+    const URL = "https://k25-tiimi1-backend-k25ohjproj.2.rahtiapp.fi/api";
     const handleClose = () => {
         setOpen(false),
             setOpenRegistForm(false)
@@ -33,14 +36,15 @@ export default function Account() {
             body: JSON.stringify(registerUser)
         }
         setOpenRegistForm(false)
-        const response = await fetch("http://localhost:8080/api/registerUser", options);
+        const response = await fetch(demo+"/registerUser", options);
         const data = await response.json();
         console.log("registered", data)
 
         return data;
     }
-    const fetchUserByName = async (user) => {
-        fetch('http://localhost:8080/api/user/' + user)
+
+    const fetchUserByName = async (email,password) => {
+        fetch(demo+'/user/findemail/'+email+"/"+password)
             .then(response => response.json())
             .then(data => {
                 setUser(data)
@@ -48,9 +52,10 @@ export default function Account() {
             })
         setOpen(false);
         if (user != "" && user != null) {
-            setShowRegisterButton(false)
+            setShowRegisterButton(false);
+            setShowUser(true)
         }
-
+        setShowUser(true)
     }
 
     const deldeteCurrentUser = async () => {
@@ -58,7 +63,8 @@ export default function Account() {
             method: 'DELETE'
         }
         if (window.confirm("do you want to delete this car")) {
-            return fetch("http://localhost:8080/api/user/" + user?.id, options);
+
+            return fetch(demo+"/user/" + user?.id, options);
         }
     };
 
@@ -77,16 +83,20 @@ export default function Account() {
 
             </div>
 
-            <h1 style={{ background: "white" }}>
-                {user?.username}
+               {showUser && <h3 style={{ background: "white" }}>
+                {user?.firstname}
+                <p>{user?.lastname}</p>
                 <p>
                     {user?.email}
                 </p>
-                <button style={{ fontSize: 20 }}
-                    onClick={() => deldeteCurrentUser()}>
+                <button 
+                id="deleteButton"
+                style={{ fontSize: 20,
+                }}
+                    onClick={() => deldeteCurrentUser()} >
                     Delete
                 </button>
-            </h1>
+            </h3>}
 
             <Dialog
                 open={open}
@@ -94,17 +104,6 @@ export default function Account() {
             >
                 <DialogTitle>Sign In</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        required
-                        id="username"
-                        name="username"
-                        label="username"
-                        type="text"
-                        fullWidth
-                        onChange={handleChange}
-                        value={signUser.username}
-                    />
                     <TextField
                         autoFocus
                         required
@@ -116,10 +115,21 @@ export default function Account() {
                         onChange={handleChange}
                         value={signUser.email}
                     />
+                    <TextField
+                        autoFocus
+                        required
+                        id="password"
+                        name="password"
+                        label="password"
+                        type="text"
+                        fullWidth
+                        onChange={handleChange}
+                        value={signUser.password}
+                    />
                 </DialogContent>
                 <DialogActions>
                     <button onClick={() => handleClose()}>Cancel</button>
-                    <button onClick={() => fetchUserByName(signUser.username)}>Sign in</button>
+                    <button onClick={() => fetchUserByName(signUser.email)}>Sign in</button>
                 </DialogActions>
             </Dialog>
 
@@ -132,28 +142,6 @@ export default function Account() {
                     <TextField
                         autoFocus
                         required
-                        id="username"
-                        name="username"
-                        label="username"
-                        type="text"
-                        fullWidth
-                        onChange={handleRegisterChange}
-                        value={registerUser.username}
-                    />
-                    {/* <TextField 
-            autoFocus
-            required
-            id="lastName"
-            name="lastName"
-            label="Last Name"
-            type="text"
-            fullWidth
-            onChange={handleRegisterChange}
-            value={registerUser.lastName}
-            /> */}
-                    <TextField
-                        autoFocus
-                        required
                         id="email"
                         name="email"
                         label="email"
@@ -161,6 +149,39 @@ export default function Account() {
                         fullWidth
                         onChange={handleRegisterChange}
                         value={registerUser.email}
+                    />
+             <TextField 
+            autoFocus
+            required
+            id="firstname"
+            name="firstname"
+            label="first Name"
+            type="text"
+            fullWidth
+            onChange={handleRegisterChange}
+            value={registerUser.firstname}
+            /> 
+                   <TextField 
+            autoFocus
+            required
+            id="lastname"
+            name="lastname"
+            label="Last Name"
+            type="text"
+            fullWidth
+            onChange={handleRegisterChange}
+            value={registerUser.lastname}
+            /> 
+                    <TextField
+                        autoFocus
+                        required
+                        id="password"
+                        name="password"
+                        label="password"
+                        type="text"
+                        fullWidth
+                        onChange={handleRegisterChange}
+                        value={registerUser.password}
                     />
                 </DialogContent>
                 <DialogActions>

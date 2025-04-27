@@ -13,7 +13,8 @@ export default function UserList() {
 
     const columnDefs = [
         { field: 'id', headerName: 'ID', sortable: true, filter: true },
-        { field: 'username', headerName: 'Name', sortable: true, filter: true },
+        { field: 'firstname', headerName: ' first Name', sortable: true, filter: true },
+        { field: 'lastname', headerName: ' last Name', sortable: true, filter: true },
         { field: 'email', headerName: 'Email', sortable: true, filter: true },
     ];
 
