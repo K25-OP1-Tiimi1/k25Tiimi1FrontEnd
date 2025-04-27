@@ -37,7 +37,11 @@ import { AllCommunityModule, ColumnAutoSizeModule, ModuleRegistry } from "ag-gri
                 headerName:"Koko",
             },
             {field: 'price', 
-                headerName:"Hinta"},
+                headerName:"Hinta"
+            },
+            {field: 'quantity',
+                headerName:"varastossa"
+             }
             
         ]);
         //Haetaan Backendistä
