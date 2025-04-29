@@ -14,9 +14,12 @@ export default function Account() {
 
     const demo = "http://localhost:8080/api";
     const URL = "https://k25-tiimi1-backend-k25ohjproj.2.rahtiapp.fi/api";
+  
     const handleClose = () => {
         setOpen(false),
-            setOpenRegistForm(false)
+            setOpenRegistForm(false),
+            setRegisterUser({ email: '', firstname: '', lastname: '', password: '' }),
+            setSignUser({ email: '', password: '' })
     }
 
     const handleChange = event => {
@@ -38,7 +41,9 @@ export default function Account() {
         setOpenRegistForm(false)
         const response = await fetch(demo+"/registerUser", options);
         const data = await response.json();
-        console.log("registered", data)
+        console.log("registered", data),
+        setRegisterUser({ email: '', firstname: '', lastname: '', password: '' }),
+        setSignUser({ email: '', password: '' })
 
         return data;
     }
@@ -52,10 +57,13 @@ export default function Account() {
             })
         setOpen(false);
         if (user != "" && user != null) {
-            setShowRegisterButton(false);
+            setShowRegisterButton(false),
             setShowUser(true)
+          
         }
-        setShowUser(true)
+        setShowUser(true),
+        setRegisterUser({ email: '', firstname: '', lastname: '', password: '' }),
+        setSignUser({ email: '', password: '' })
     }
 
     const deldeteCurrentUser = async () => {
