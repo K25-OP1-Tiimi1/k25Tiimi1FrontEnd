@@ -1,5 +1,5 @@
 import { AgGridReact } from 'ag-grid-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import { useQuery } from '@tanstack/react-query';
@@ -20,7 +20,7 @@ export default function UserList() {
 
     if (isLoading) return <div>Loading users....</div>;
     if (isError) return <div>Error loading users: {error?.message || 'Unknown error'}</div>;
-
+    useEffect( () => fetchUsers, [])
     return (
         <div
             className="UserTable"
