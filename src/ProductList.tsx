@@ -4,7 +4,8 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchProducts } from "./api";
-import { AllCommunityModule, ColumnAutoSizeModule, ModuleRegistry } from "ag-grid-community";
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+import { Button } from "@mui/material";
 
 
 
@@ -14,6 +15,7 @@ import { AllCommunityModule, ColumnAutoSizeModule, ModuleRegistry } from "ag-gri
 
         //query jonka avulla viedään tiedot ag-Grid-taulukkoon
         const queryClient = useQueryClient();
+        const [open, setOpen] = useState(false)
 
         const {data: Products} = useQuery({
             queryKey: ['products'],
@@ -41,9 +43,37 @@ import { AllCommunityModule, ColumnAutoSizeModule, ModuleRegistry } from "ag-gri
             },
             {field: 'quantity',
                 headerName:"varastossa"
-             }
-            
+             },
+             {field: 'data', headerName:'',
+                cellRenderer: (params:any) => <Button onClick={() => addReservation(params.data)}>Varaa</Button>
+             },
+             {field: 'data', headerName:'',
+                cellRenderer: (params:any) => <Button onClick={() => openDialog(params.data)}>Varaa</Button>
+             }   
         ]);
+
+        const openDialog = (item:any) => {
+            setOpen(true)
+            
+        }
+
+        //Testaamista varten, ei tee vielä mitään
+        const demo = "http://localhost:8080/api";
+        const addReservation = async (item:any) => {
+            const options = {
+                method: 'POST',
+                headers: {
+                    'content-Type': 'application/json',
+                },
+                body: JSON.stringify(item)
+            }
+            const response = await fetch(demo+"/reservation", options);
+            const data = await response.json();
+            console.log("resevation sended: ", data)
+            return data;
+        }
+
+        
         //Haetaan Backendistä
         // fetchProducts löytyy api tiodostosta
         useEffect( () => fetchProducts, [])

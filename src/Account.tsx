@@ -14,12 +14,12 @@ export default function Account() {
 
     const demo = "http://localhost:8080/api";
     const URL = "https://k25-tiimi1-backend-k25ohjproj.2.rahtiapp.fi/api";
-  
+    
+    
     const handleClose = () => {
         setOpen(false),
-            setOpenRegistForm(false),
-            setRegisterUser({ email: '', firstname: '', lastname: '', password: '' }),
-            setSignUser({ email: '', password: '' })
+        setOpenRegistForm(false),
+        emptyText();
     }
 
     const handleChange = event => {
@@ -42,39 +42,40 @@ export default function Account() {
         const response = await fetch(demo+"/registerUser", options);
         const data = await response.json();
         console.log("registered", data),
-        setRegisterUser({ email: '', firstname: '', lastname: '', password: '' }),
-        setSignUser({ email: '', password: '' })
-
+        emptyText()
         return data;
     }
 
     const fetchUserByName = async (email,password) => {
         fetch(demo+'/user/findemail/'+email+"/"+password)
-            .then(response => response.json())
-            .then(data => {
+            .then(response => 
+                response.json())
+            .then(data => { 
                 setUser(data)
-                console.log(data)
-            })
-        setOpen(false);
-        if (user != "" && user != null) {
+                console.log(data)         
+            },)
+         
+            setOpen(false),        
             setShowRegisterButton(false),
-            setShowUser(true)
-          
-        }
-        setShowUser(true),
-        setRegisterUser({ email: '', firstname: '', lastname: '', password: '' }),
-        setSignUser({ email: '', password: '' })
+            setShowUser(true),
+            emptyText() 
     }
 
     const deldeteCurrentUser = async () => {
         const options = {
             method: 'DELETE'
         }
-        if (window.confirm("do you want to delete this car")) {
-
-            return fetch(demo+"/user/" + user?.id, options);
+        if (window.confirm("do you want to delete User")) {
+            fetch(demo+"/user/" + user?.id, options),
+            emptyText(),
+            setUser([]),
+            setShowUser(false);
         }
     };
+    const emptyText = () => {
+        setRegisterUser({ email: '', firstname: '', lastname: '', password: '' }),
+        setSignUser({ email: '', password: '' })
+    }
 
     return (
         <>
@@ -92,10 +93,9 @@ export default function Account() {
             </div>
 
                {showUser && <h3 style={{ background: "white" }}>
-                {user?.firstname}
-                <p>{user?.lastname}</p>
+                {"Name: " + user?.firstname} {" " + user?.lastname}
                 <p>
-                    {user?.email}
+                    {"Email: " + user?.email}
                 </p>
                 <button 
                 id="deleteButton"
@@ -137,7 +137,7 @@ export default function Account() {
                 </DialogContent>
                 <DialogActions>
                     <button onClick={() => handleClose()}>Cancel</button>
-                    <button onClick={() => fetchUserByName(signUser.email)}>Sign in</button>
+                    <button onClick={() => fetchUserByName(signUser.email, signUser.password)}>Sign in</button>
                 </DialogActions>
             </Dialog>
 

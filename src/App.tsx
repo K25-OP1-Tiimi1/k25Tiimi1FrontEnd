@@ -11,7 +11,6 @@ function App() {
   
   const queryClient = new QueryClient();
 
-
       return(
      
         <div className='backGroundImage' style={{backgroundImage: `url("public/FreepikBackgroundImage.jpg")`,
@@ -41,7 +40,6 @@ function App() {
               <Outlet />
           <FooterSection />
          </Container>
-        
       </QueryClientProvider>
       </div>
       )

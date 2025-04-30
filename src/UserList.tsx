@@ -20,7 +20,6 @@ export default function UserList() {
 
     if (isLoading) return <div>Loading users....</div>;
     if (isError) return <div>Error loading users: {error?.message || 'Unknown error'}</div>;
-    useEffect( () => fetchUsers, [])
     return (
         <div
             className="UserTable"
