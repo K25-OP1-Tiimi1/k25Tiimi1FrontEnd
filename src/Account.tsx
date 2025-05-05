@@ -46,7 +46,7 @@ export default function Account() {
         return data;
     }
 
-    const fetchUserByName = async (email,password) => {
+    const fetchUserByName = async (email: string, password: string) => {
         fetch(demo+'/user/findemail/'+email+"/"+password)
             .then(response => 
                 response.json())

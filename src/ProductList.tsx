@@ -5,7 +5,7 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchProducts } from "./api";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 
 
 
@@ -15,8 +15,11 @@ import { Button } from "@mui/material";
 
         //query jonka avulla viedään tiedot ag-Grid-taulukkoon
         const queryClient = useQueryClient();
+        
         const [open, setOpen] = useState(false)
-
+        const [reservation, setReservation] = useState([])
+        const [dialog, SetDialog] = useState({item: [], email:"", password:"", count:1})
+        const [tempData, setTempData] = useState([]);
         const {data: Products} = useQuery({
             queryKey: ['products'],
             queryFn: fetchProducts
@@ -44,35 +47,43 @@ import { Button } from "@mui/material";
             {field: 'quantity',
                 headerName:"varastossa"
              },
-             {field: 'data', headerName:'',
-                cellRenderer: (params:any) => <Button onClick={() => addReservation(params.data)}>Varaa</Button>
-             },
-             {field: 'data', headerName:'',
-                cellRenderer: (params:any) => <Button onClick={() => openDialog(params.data)}>Varaa</Button>
+             {field: 'data', headerName:'', filter: false,
+                
+                cellRenderer: (params:any) => <Button onClick={() => addReservation(params.data) }> Varaa tuote </Button>
              }   
         ]);
 
-        const openDialog = (item:any) => {
-            setOpen(true)
-            
-        }
-
-        //Testaamista varten, ei tee vielä mitään
         const demo = "http://localhost:8080/api";
-        const addReservation = async (item:any) => {
-            const options = {
-                method: 'POST',
-                headers: {
-                    'content-Type': 'application/json',
-                },
-                body: JSON.stringify(item)
-            }
-            const response = await fetch(demo+"/reservation", options);
-            const data = await response.json();
-            console.log("resevation sended: ", data)
-            return data;
+         
+        const addReservation= (param:any) => {
+         setOpen(true),
+         SetDialog({...dialog, item: param})
         }
 
+        const handleClose = () => {
+            setOpen(false);
+        }
+
+        const handleChange = (event: any) => {
+            SetDialog({ ...dialog, [event.target.name]: event.target.value })
+        }
+
+        const sendReservation = async () => {
+                    const options = {
+                        method: 'POST',
+                        headers:{
+                            'content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(dialog)
+                    }
+                    const response = await fetch (demo+"/reservation", options);
+                    const data = await response.json();
+                    console.log("reservation done", data),
+                    handleClose()
+                    return data
+                }
+
+        
         
         //Haetaan Backendistä
         // fetchProducts löytyy api tiodostosta
@@ -100,7 +111,85 @@ import { Button } from "@mui/material";
                     backgroundColor: 'white', 
                     fontWeight:"bold"}
             }}
-          
             />
+            <Dialog
+            open={open}
+            onClose={handleClose}
+            >
+                <DialogTitle>
+                    Hello this is just test
+                </DialogTitle>
+                <DialogContent>
+                    <TextField
+                    margin="dense"
+                    disabled
+                    label="Tuote"
+                    type="text"
+                    fullWidth
+                    value={dialog.item?.productName}
+                    />
+                                        <TextField
+                    margin="dense"
+                    disabled
+                    label="Hinta"
+                    type="text"
+                    defaultValue={""}
+                    fullWidth
+                    value={dialog.item?.price}
+                    />
+                                        <TextField
+                    margin="dense"
+                    disabled
+                    label="koko"
+                    type="text"
+                    fullWidth
+                    value={dialog.item?.size}
+                    />
+                                        <TextField
+                    margin="dense"
+                    disabled
+                    label="Valmistaja"
+                    type="text"
+                    fullWidth
+                    value={dialog.item?.manufacturer?.name}
+                    />
+                                        <TextField
+                    margin="dense"
+                   
+                    id="count"
+                    name="count"
+                    label="Määrä"
+                    type="number"
+                    fullWidth
+                    onChange={handleChange}
+                    value={dialog.count}
+                    />
+                                        <TextField
+                    margin="dense"
+                    id="email"
+                    name="email"
+                    label="Email"
+                    type="text"
+                    fullWidth
+                    onChange={handleChange}
+                    value={dialog.email}
+                    />
+                                        <TextField
+                    margin="dense"
+                    id="password"
+                    name="password"
+                    label="password"
+                    type="password"
+                    fullWidth
+                    onChange={handleChange}
+                    value={dialog.password}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => sendReservation()}> Send Reservation </Button>
+                    <Button onClick={handleClose}> Cancel </Button>
+                </DialogActions>
+            </Dialog>
+            
         </div>
 )}
