@@ -11,15 +11,31 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 
    export default function productList(){
 
+    interface Idialog {
+        item: {
+            productName: string,
+            type: string,
+            price: string,
+            size: string,
+            manufacturer:{
+                name: string
+            }
+        },
+        email: string,
+        password:string,
+        count: number
+    }
+
     ModuleRegistry.registerModules([AllCommunityModule]);
 
         //query jonka avulla viedään tiedot ag-Grid-taulukkoon
-        const queryClient = useQueryClient();
         
         const [open, setOpen] = useState(false)
-        const [reservation, setReservation] = useState([])
-        const [dialog, SetDialog] = useState({item: [], email:"", password:"", count:1})
-        const [tempData, setTempData] = useState([]);
+        const [dialog, SetDialog] = useState<Idialog>({item: {
+            productName:"", type:"", price:"", size:"", manufacturer:{
+                name:""
+            }
+        }, email:"", password:"", count:1})
         const {data: Products} = useQuery({
             queryKey: ['products'],
             queryFn: fetchProducts
@@ -52,7 +68,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
                 cellRenderer: (params:any) => <Button onClick={() => addReservation(params.data) }> Varaa tuote </Button>
              }   
         ]);
-
+        
+       // const backend_URL = "https://k25-tiimi1-backend-k25ohjproj.2.rahtiapp.fi/api"
         const demo = "http://localhost:8080/api";
          
         const addReservation= (param:any) => {
@@ -87,7 +104,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
         
         //Haetaan Backendistä
         // fetchProducts löytyy api tiodostosta
-        useEffect( () => fetchProducts, [])
+        useEffect( ():(() => void) => fetchProducts, [])
     return(
         <div className="ProductTable" style={{width: "100%", height: "100%", opacity:0.95, }}>
 

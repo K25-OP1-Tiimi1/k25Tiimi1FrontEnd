@@ -13,7 +13,7 @@ export default function Account() {
     const [showUser, setShowUser] = useState(false)
 
     const demo = "http://localhost:8080/api";
-    const URL = "https://k25-tiimi1-backend-k25ohjproj.2.rahtiapp.fi/api";
+     const backend_URL = "https://k25-tiimi1-backend-k25ohjproj.2.rahtiapp.fi/api"
     
     
     const handleClose = () => {
