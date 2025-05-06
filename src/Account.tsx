@@ -1,10 +1,22 @@
+
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { useState } from "react"
 
 export default function Account() {
+    
+    interface IUser{
+        user:{
+            id:any,
+            email:string,
+            password:string,
+            firstname:string,
+            lastname:string
+
+        }
+    }
 
     const [signUser, setSignUser] = useState({ email: '', password: '' });
-    const [user, setUser] = useState([])
+    const [user, setUser] = useState<IUser>({user:{id:0, firstname:"",lastname:"",password:"", email:""}})
     const [registerUser, setRegisterUser] = useState({ email: '', firstname: '', lastname: '', password: '' })
 
     const [open, setOpen] = useState(false)
@@ -22,11 +34,11 @@ export default function Account() {
             emptyText();
     }
 
-    const handleChange = event => {
+    const handleChange = (event:any) => {
         setSignUser({ ...signUser, [event.target.name]: event.target.value })
     }
 
-    const handleRegisterChange = event => {
+    const handleRegisterChange = (event:any) => {
         setRegisterUser({ ...registerUser, [event.target.name]: event.target.value })
     }
 
@@ -66,9 +78,8 @@ export default function Account() {
             method: 'DELETE'
         }
         if (window.confirm("do you want to delete User")) {
-            fetch(demo + "/user/" + user?.id, options),
+            fetch(demo + "/user/" + user?.user.id, options),
                 emptyText(),
-                setUser([]),
                 setShowUser(false);
         }
     };
@@ -93,9 +104,9 @@ export default function Account() {
             </div>
 
             {showUser && <h3 style={{ background: "white" }}>
-                {"Name: " + user?.firstname} {" " + user?.lastname}
+                {"Name: " + user?.user.firstname} {" " + user?.user.lastname}
                 <p>
-                    {"Email: " + user?.email}
+                    {"Email: " + user?.user.email}
                 </p>
                 <button
                     id="deleteButton"

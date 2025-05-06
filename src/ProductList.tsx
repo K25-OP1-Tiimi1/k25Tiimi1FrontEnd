@@ -1,8 +1,8 @@
 import { AgGridReact } from "ag-grid-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "./api";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
@@ -41,7 +41,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
             queryFn: fetchProducts
         })
         //ag-Grid varten sarakkeet
-        const [columnDefs, setColumnDefs] = useState([           
+        const [columnDefs] = useState([           
             {field: 'manufacturer.name', 
                 headerName:"Valmistaja",
             },
