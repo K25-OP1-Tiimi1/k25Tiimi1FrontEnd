@@ -1,6 +1,8 @@
 
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { useState } from "react"
+import { deleteUserById, fetchUserByName, saveUser } from "./api";
+
 
 export default function Account() {
     
@@ -24,10 +26,6 @@ export default function Account() {
     const [showRegisterButton, setShowRegisterButton] = useState(true)
     const [showUser, setShowUser] = useState(false)
 
-    const demo = "http://localhost:8080/api";
-    // const URL = "https://k25-tiimi1-backend-k25ohjproj.2.rahtiapp.fi/api";
-
-
     const handleClose = () => {
         setOpen(false),
             setOpenRegistForm(false),
@@ -43,49 +41,27 @@ export default function Account() {
     }
 
     const handleSave = async () => {
-        const options = {
-            method: 'POST',
-            headers: {
-                'content-Type': 'application/json',
-            },
-            body: JSON.stringify(registerUser)
-        }
-        setOpenRegistForm(false)
-        const response = await fetch(demo + "/registerUser", options);
-        const data = await response.json();
-        console.log("registered", data),
-            emptyText()
-        return data;
-    }
-
-    const fetchUserByName = async (email: string, password: string) => {
-        fetch(demo + '/user/findemail/' + email + "/" + password)
-            .then(response =>
-                response.json())
-            .then(data => {
-                setUser(data)
-                console.log(data)
-            },)
-
-        setOpen(false),
-            setShowRegisterButton(false),
-            setShowUser(true),
-            emptyText()
+        saveUser(registerUser),
+        handleClose();
     }
 
     const deldeteCurrentUser = async () => {
-        const options = {
-            method: 'DELETE'
-        }
-        if (window.confirm("do you want to delete User")) {
-            fetch(demo + "/user/" + user?.user.id, options),
+        deleteUserById(user.user.id)
                 emptyText(),
                 setShowUser(false);
-        }
+        
     };
+
     const emptyText = () => {
         setRegisterUser({ email: '', firstname: '', lastname: '', password: '' }),
-            setSignUser({ email: '', password: '' })
+        setSignUser({ email: '', password: '' })
+    }
+    const signIn = async () => {
+        fetchUserByName(signUser.email, signUser.password)
+        .then(data => {setUser({user:{id:data.id, firstname:data.firstname,lastname:data.lastname,password:data.password, email:data.email}})}),
+        setShowUser(true),
+        setShowRegisterButton(false),
+        handleClose();  
     }
 
     return (
@@ -149,7 +125,7 @@ export default function Account() {
                 </DialogContent>
                 <DialogActions>
                     <button onClick={() => handleClose()}>Cancel</button>
-                    <button onClick={() => fetchUserByName(signUser.email, signUser.password)}>Sign in</button>
+                    <button onClick={() => signIn()}>Sign in</button>
                 </DialogActions>
             </Dialog>
 
