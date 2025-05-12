@@ -38,7 +38,7 @@ export default function productList() {
         queryKey: ['products'],
         queryFn: fetchProducts
     })
-    //ag-Grid varten sarakkeet
+
     const [columnDefs] = useState([
         {
             field: 'manufacturer.name',
@@ -95,10 +95,6 @@ export default function productList() {
         handleClose()
     }
 
-
-
-    //Haetaan Backendistä
-    // fetchProducts löytyy api tiodostosta
     useEffect((): (() => void) => fetchProducts, [])
     return (
         <div className="ProductTable" style={{ width: "100%", height: "100%", opacity: 0.95, }}>

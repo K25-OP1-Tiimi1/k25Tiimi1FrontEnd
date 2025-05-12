@@ -6,10 +6,8 @@ import { createHashRouter, RouterProvider } from 'react-router-dom'
 import ProductList from './ProductList'
 import HomePage from './HomePage'
 import AboutUs from './AboutUs'
-import UserList from './UserList'
 import Account from './Account'
 
-//routter
 const router = createHashRouter([
   {
     path: "/",
@@ -26,10 +24,6 @@ const router = createHashRouter([
       {
         path: "about-us",
         element: <AboutUs />,
-      },
-      {
-        path: "users",
-        element: <UserList />,
       },
       {
         path: "account",
