@@ -1,7 +1,7 @@
 const AboutUs = () => {
     return (
       <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-        <h2>About Us</h2>
+        <h2 style={{display:"flex", flexDirection:"column", alignItems: 'center', justifyContent: 'center', backgroundColor:"white"}}>About Us</h2>
         <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
             
           {/* Box 1 */}
