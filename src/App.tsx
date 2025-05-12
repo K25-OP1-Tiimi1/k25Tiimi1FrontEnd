@@ -13,7 +13,7 @@ function App() {
 
       return(
      
-        <div className='backGroundImage' style={{backgroundImage: `url("public/FreepikBackgroundImage.jpg")`,
+        <div className='backGroundImage' style={{backgroundImage: `url("assets/FreepikBackgroundImage.jpg")`,
           
          backgroundSize: 2400,
          backgroundPosition:"center",
